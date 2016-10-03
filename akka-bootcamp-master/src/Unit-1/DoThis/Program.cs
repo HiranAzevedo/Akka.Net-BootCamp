@@ -1,5 +1,5 @@
 ﻿using System;
-﻿using Akka.Actor;
+using Akka.Actor;
 
 namespace WinTail
 {
@@ -12,6 +12,12 @@ namespace WinTail
         {
             // initialize MyActorSystem
             // YOU NEED TO FILL IN HERE
+            MyActorSystem = ActorSystem.Create("MyActorSystem");
+
+            var consoleWriterActor = MyActorSystem.ActorOf(Props.Create(() => new ConsoleWriterActor()));
+            var consoleReader = MyActorSystem.ActorOf(Props.Create(() => new ConsoleReaderActor(consoleWriterActor)));
+
+            consoleReader.Tell("start");
 
             PrintInstructions();
 
