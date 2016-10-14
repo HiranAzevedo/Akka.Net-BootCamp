@@ -11,9 +11,9 @@ namespace WinTail
     {
 
         #region Message types
-        public class StartTrail
+        public class StartTail
         {
-            public StartTrail(string filePath, IActorRef reporterActor)
+            public StartTail(string filePath, IActorRef reporterActor)
             {
                 FilePath = filePath;
                 ReporterActor = reporterActor;
@@ -39,9 +39,9 @@ namespace WinTail
 
         protected override void OnReceive(object message)
         {
-            if (message is StartTrail)
+            if (message is StartTail)
             {
-                var msg = message as StartTrail;
+                var msg = message as StartTail;
 
                 Context.ActorOf(Props.Create(() => new TailActor(msg.ReporterActor, msg.FilePath)));
             }
